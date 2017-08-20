@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.study.entity.User">
+        <property name="use_id" value="234"></property>
+        <property name="userName" value="www.baidu.com"></property>
+        <property name="age" value="23"></property>
+        <property name="sex" value="男"></property>
+    </bean>
+
+</beans>
