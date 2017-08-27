@@ -13,9 +13,8 @@ public class SpringEnter {
 
     public static void main(String[] args) {
         ApplicationContext  applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-
         User user = (User) applicationContext.getBean("user");
         System.out.println("获取用户的姓名："+user.getUserName());
+
     }
 }
