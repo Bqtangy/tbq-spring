@@ -13,8 +13,6 @@ MyBatis 相关的知识：
 
 
 
-
-
 Oracle 相关的SQL语句：
 
 1.创建序列： create sequence seq_newsId increment by 1 start with 1  maxvalue 999999999;
