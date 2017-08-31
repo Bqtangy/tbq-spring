@@ -1,0 +1,36 @@
+Java 笔记
+1. myBatis 中的#和$的区别。
+
+# 就是JDBC底层要走的预编译语句的占位符。相当于“？” 可以防止sql语句的注入。
+
+$ 仅仅是一个String字符串的替换，在动态SQL中会进行变量替换。
+
+
+2.resultMap 映射管理器：可以进行实体类之间的关系，并管理结果和实体类间的映射关系。（有点难先放一放）
+
+3.
+<choose>
+       <when>
+       </when>
+       <otherwise>
+       </otherwrise>
+</choose>
+
+条件一但匹配上了就会退出。
+
+4. SQL语句中的遍历
+
+<foreach  collection="list" item="productId" open ="(" separator="," close=")">
+#{productId}
+</foreach>
+
+
+5.Spring 实现对动态数据的切换。
+
+实现AbstractRoutingDataSource抽象类，重写determineCurrentLookupKey（）来进行指定key值里面的 value值指定的数据源（DataSource）
+
+
+
+
+
+

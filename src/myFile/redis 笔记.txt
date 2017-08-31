@@ -1,0 +1,49 @@
+redis 笔记：
+
+redis 服务器的启动：通过cmd命令： 在redis的目录菜单中键入： redis-server.exe redis.windows.conf 进行启动。
+
+通过redis-cli 客户端连接本地redis服务器。
+
+redis-cli -h host -p port -a password 连接远程服务器。
+
+
+redis 的特点：
+
+1.redis 支持数据持久化，可以将内存的数据保存到磁盘里，重启的时候可以再次加载进行使用。
+
+2.redis 不仅仅支持key_value 类型的数据， 同时还提供了list set zset hash 等数据结构。
+
+3. redis 支持数据备份，即 master-slave 模式的备份。
+
+优势：
+
+1）性能高
+
+2）数据类型丰富
+
+3）redis 所有的操作都是原子性操作。
+
+4）key 存活时间问题,过期的特点，存储的时间问题。
+
+redis 与其它key-value存储有什么不同。
+
+（1）提供原子性操作  （2）redis运行在内存里面并且可以持久化到磁盘
+
+
+5）redis 配置进行设置： config set config_setting_name  new_config_value   redis 的一些属性的设置。
+
+6).redis 的一些重要的配置属性：
+
+（1）.timeout 档客户端闲置多长时间关闭连接。
+
+（2）.save  指定多长时间内，有更新操作。
+
+（3）.maxMomery 指定redis的内存的最大限制。
+
+.........
+
+7).redis  的数据类型。
+
+五大数据类型： String(字符串)  Hash（哈希） List(列表) Set(集合) 及zset（sorted set 有序集合）。
+
+（1）.二进制安全，一个键最大能存储512MB。
