@@ -1,0 +1,7 @@
+effection_java 笔记：
+
+1.逻辑相同和对象等同不是一回事，  Object 的equals方法等同于逻辑意义上的equals方法。
+
+2.
+
+
