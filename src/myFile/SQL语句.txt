@@ -1,0 +1,85 @@
+MyBatis 相关的知识：
+
+1.SelectKey 解决insert数据主键自动生成的问题。
+
+2.<foreach item="item" index="index" collection="userIds"  open="(" separator="," close=")">
+       #{item}
+  </foreach>
+遍历userIds 里面的集合。
+
+3.
+
+
+
+
+
+Oracle 相关的SQL语句：
+
+1.创建序列： create sequence seq_newsId increment by 1 start with 1  maxvalue 999999999;
+
+2. NLSSORT 进行排序 拼音，部首，笔画 进行相关的排序。
+
+3. Trunc() 函数使用：对值进行截断函数。
+
+4. rownum（）对Oracle数据进行分页。
+
+select * from(select c.*,rownum rn from(select * from t_stores_info)c where rownum <=5) where rn>2;  查询2---5 条标的记录。
+
+5. Case()函数
+
+case
+
+when....then
+......
+......
+else...
+
+6 REGEXP_SUBSTR 函数
+
+优化上面的SQL语句，让生成的行的数量符合实际情况
+[sql]
+SELECT REGEXP_SUBSTR('17,20,23', '[^,]+', 1, LEVEL, 'i') AS STR
+  FROM DUAL
+CONNECT BY LEVEL <=
+           LENGTH('17,20,23') - LENGTH(REGEXP_REPLACE('17,20,23', ',', ''))+1;
+STR
+----
+17
+20
+23
+
+实例： 利用了wm_contect() regexp_substr() 语法。（将获取的字符串集的数据，将它分割成每一个值。  有利于in的遍历）
+
+select REGEXP_SUBSTR((select wm_concat(t.login_id)from t_users t where user_state='0'),'[^,]+',1,LEVEL,'i')as str from dual CONNECT BY LEVEL <=
+
+LENGTH((select wm_concat(t.login_id)from t_users t where user_state='0')) - LENGTH(REGEXP_REPLACE((select wm_concat(t.login_id)from t_users t where user_state='0'), ',', ''))+1
+
+
+
+MySQL 相关的SQL语句：
+
+1.日期的的格式转化: Date_format（date,'%Y-%m-%d'） 将时间格式转化为指定的日期格式。
+
+2.字符串的时间格式转化： Str_to_date("date",'%Y-%m-%d')  将时间格式的字符串转化成指定的日期格式。
+
+3. mySQL 函数： INSTR(字段名，字符串)  这个函数返回字符串在某个字段的内容中的位置，没有找到字符串返回0， 否者返回位置（从1开始）。
+
+4.mysql的group_concat对应oracle的wm_concat  返回由于属于一组的列值连接组合而成的结果。
+
+5.CONCAT（s1,s2,.....sn） 将s1,s2,.......sn 连接成一个字符串。
+
+
+6.mysql的控制流函数：
+
+case when {test1} then {result}........else{default} end 如果testN 为真，则返回resultN, 否者返回default.
+
+case {test} when {val1} then{resule1}....else {default} end 如果test 的值和valN 相等，则返回resultN,否者默认default。
+
+if（test,t,f） 如果test为真，返回t,否者返回f .
+
+ifnull(arg1,arg2) 如果arg1 为不是null,则返回arg1 否则返回arg2.
+
+
+
+
+

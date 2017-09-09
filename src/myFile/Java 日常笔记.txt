@@ -1,0 +1,274 @@
+Java 笔记
+1. myBatis 中的#和$的区别。
+
+# 就是JDBC底层要走的预编译语句的占位符。相当于“？” 可以防止sql语句的注入。
+
+$ 仅仅是一个String字符串的替换，在动态SQL中会进行变量替换。
+
+2.resultMap 映射管理器：可以进行实体类之间的关系，并管理结果和实体类间的映射关系。（有点难先放一放）
+
+
+3. SQL语句中的遍历
+
+<foreach  collection="list" item="productId" open ="(" separator="," close=")">
+#{productId}
+</foreach>
+
+4.Spring 实现对动态数据的切换。
+
+实现AbstractRoutingDataSource抽象类，重写determineCurrentLookupKey（）来进行指定key值里面的 value值指定的数据源（DataSource）
+-----------------------------------------------------------------------------------------------------------------------------
+1.spring 的事物隔离级别:
+
+  1）.隔离级别
+
+  4种：
+
+  read uncommited  脏读   重复读   幻读
+
+  read commit  重复读  幻读
+
+  repeatable  read 幻读
+
+  serializable 最高级
+
+  脏读： 一个事物进行的更新但是没有提交， 当另一个事物读取了第一个事物更新后的结果，在此时第一个事物回滚了，那么第二个事物就读取的脏数据。
+
+  不可重复读：对同一笔数据读取的结果不一样.
+
+  幻读：一个事物在多次查询的的记录的结果都不一样.(事物1 在插入之前和之后读取的数据不一样)
+
+
+  2).ACID
+
+  原子性：Atomicity
+
+  一致性：Consistency
+
+  隔离性：Isolation
+
+  持久性：Durability
+
+  2.spring 两种事物的管理：
+
+  1).编程式事物管理：
+
+  2).声明式事物管理：
+
+
+  3.事物的传播性：（比较重要）
+
+  1）.required: 具有事物上下文中运行， （异常 被调用端和调用端回滚）。
+
+
+  2).required_new 创建新的transaction并执行,如果当前已经有了就挂起。
+
+  3）supports: 当前有transaction者执行，没有transaction就在没有的上执行
+
+  4）not_supported 在无transaction执行， 有transaction 就将他挂起
+  状态
+
+
+  5）mandatory： 在transaction 状态下运行， 没有者抛异常
+
+  6）never 在无transaction状态运行， 有者抛异常
+
+  7）nested 嵌套事物, 内部事物是独立的对外部事物没有影响。
+
+
+  4.jdbcTemple 使用了模板方法模式：
+
+  模板方法模式：主要对算法和行为逻辑进行封装。
+
+  JDBC: 1.基于Template形式的JDBC使用方式：
+
+  2. 基于操作对象的JDBC使用方式；
+
+
+  Spring MVC :  主要控制器： (DispatcherServlet  控制中心)
+
+
+
+  handlerMapping  主要作用： 注册和查找
+
+
+  HandlerMap   hashMap<String,Object >
+
+
+  HandlerMapping 被创建的时候完成了  url 到  handler 的映射  (在注册中就被关联上了)  再通过getHandler方法来查找对应的controller.
+
+
+  Controller 处理一些业务逻辑返回一个ModelAndView
+
+
+  ViewResolver（视图解析器）
+
+
+  方法都在dispatcherServlet 里面
+
+
+
+  四种handlerMapping:
+
+
+  1. BeanNameUrlHandlerMapping
+
+  2.SimpleUrlHandlerMapping
+
+  3.ControllerClassNameHandlerMapping
+
+  4.DefaultAnnotationHandlerMapping
+
+
+
+  5.Spring 拦截器， Servlet 过滤器 区别和联系：
+
+
+
+  6.Spring MVC 遵守的servlet 规范的web 应用程序:
+
+
+  7. ContextLoaderListener //加载spring IOC 容器，dispatchersevlet
+
+  加载 SpringMVC 配置相关的类。
+
+
+
+  8.启动顺序，ContextLoaderListener contextLoader   让Spring容器先启动，然后再开始启动Servlet相关的容器。
+
+
+  9.servletConfig  代表Sevlet 配置中的参数信息。
+
+  <servlet>
+      <servlet-name>ServletDemo1</servlet-name>
+      <servlet-class>cn.lsl.servlet.ServletDemo1</servlet-class>
+      <init-param>
+          <param-name>username</param-name>
+          <param-value>zhangsan</param-value>
+      </init-param>
+      <init-param>
+          <param-name>age</param-name>
+          <param-value>23</param-value>
+      </init-param>
+    </servlet>
+
+
+  10.设计模式：
+
+  设计模式相关的原则：
+
+  1).开闭原则  对扩展开放，对修改进行关对原程序实行扩展的时候，不能修改原来的代码。
+
+  2).依赖倒置原则，依赖抽象不依赖具体的实现。
+
+  3).接口隔离原则，代码复用原则。
+
+
+  1.单例模式： 私有的构造方法， 提供了获取对象实例公有的接口。getInstance(){ return new Instance()}....获取当前实例
+
+  2.适配器模式： 解决目标接口与原来接口不兼容的问题,实现目标接口的方法，然后将被适配的类以组合的方式添加进来。
+
+  3. 装饰模式： 给一个被装饰的对象那个添加新功能，要求装饰对象对象和被装饰对象都实现同一个接口，装饰对象持有被装饰对象，完成在被装饰对象上添加新功能。
+
+  4.代理模式： 创建一个代理对象出来，替代原来对象来进行一些操作，代理类中会引入被代理对象，在调用被代理对象的方法时，可以在被代理对向和被代理对象后调用被代理对象的方法。
+
+  5.外观模式：为了解决类与类之间的依赖关系，降低类与类之间的耦合度。客户端的一个方法的实现可以要用到多个类的方法，为了降低依赖，可以将各个类方法的功能都放到外观类里面的
+  方法里，以后客户端调用外观类进行打交道就行了。
+
+  6.桥接模式：
+
+  7.策略模式：策略模式一般定义了一系列的算法，并将每个算法封装起来，使得他们可以相互替换。需要设计一个接口，为一切实现类提供统一的方法。
+
+  8.观察者模式：定义对象之间的一种一对多的依赖关系，当有一个对象的状态放生改变时，所依赖他的对象都会
+
+  得到通知和状态的改变。
+
+  9.责任链模式：有多个对象，每个对象持有对下个对象的引用，这样就形成一条链。请求会在这条链上
+  传递，直到某一对象决定处理请求。
+
+  10.接口隔离原则：（客户端不应该依赖它不需要的接口，一个类对另一个类的依赖应该建立在最小的接口上。）
+
+  1).接口隔离的原则： 接口尽量的少，但是也是有限度。
+
+  2）.为依赖接口的类定制服务，只暴露给他调用的的类需要它的方法是借口。
+
+  3).提高内聚，减少对外交互。使接口用最少的方法完成最多的事情。
+
+
+
+
+
+
+  git 工作流的一些常用命令：
+
+  git branch 查看当前有多少分支，并且当前分支为哪个。
+
+  git checkout -b  创建并且切换到当前分支上。
+
+  Linux 系统对一些权限的修改：
+
+  chmod 用来改变权限，
+
+
+  Executors 提供四种线程池：
+
+  1).newCachedThreadPool : 创建一个可缓存线程池。超过处理需求，灵活回收空闲线程，若无可回收，则创建新线程。
+
+  2).newFixedThreadPool  : 创建一个定长线程池，可以控制线程的最大并发数，超出线程会在队列中等待。
+
+  3).newSingleThreadExecutor  : 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证任务按指定的顺序执行（FIFO ， LIFO, 优先级 ）执行。
+
+  4）.newScheduledThreadPool : 创建一个定长线程池 ，支持定时及周期性任务执行。
+
+ ------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
