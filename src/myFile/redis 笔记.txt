@@ -11,7 +11,7 @@ redis 的特点：
 
 1.redis 支持数据持久化，可以将内存的数据保存到磁盘里，重启的时候可以再次加载进行使用。
 
-2.redis 不仅仅支持key_value 类型的数据， 同时还提供了list set zset hash 等数据结构。
+2.redis 不仅仅支持key_value 类型的数据， 同时还提供了string list set zset hash 等数据结构。
 
 3. redis 支持数据备份，即 master-slave 模式的备份。
 
